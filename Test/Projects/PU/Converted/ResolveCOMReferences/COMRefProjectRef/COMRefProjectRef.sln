@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "COMRefProjectRef", "COMRefProjectRef\COMRefProjectRef.csproj", "{B8788499-B7AD-4078-B9F4-EF421ED0A5AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{56C6A632-8299-448D-AEC4-6E513BB9C490}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8788499-B7AD-4078-B9F4-EF421ED0A5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8788499-B7AD-4078-B9F4-EF421ED0A5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8788499-B7AD-4078-B9F4-EF421ED0A5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8788499-B7AD-4078-B9F4-EF421ED0A5AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C6A632-8299-448D-AEC4-6E513BB9C490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C6A632-8299-448D-AEC4-6E513BB9C490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C6A632-8299-448D-AEC4-6E513BB9C490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C6A632-8299-448D-AEC4-6E513BB9C490}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

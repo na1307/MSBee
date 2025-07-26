@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBee", "MSBee\MSBee.csproj", "{77BC76C3-336B-462E-B01F-A105ED16F3F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBeeUnitTests", "MSBeeUnitTests\MSBeeUnitTests.csproj", "{934818FF-E9CC-45C3-A22B-2FF634E2E0F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBeeScenarioTests", "MSBeeScenarioTests\MSBeeScenarioTests.csproj", "{EED9EEC5-0E48-4DF4-8E67-5B52CF5D4EAE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7} = {77BC76C3-336B-462E-B01F-A105ED16F3F7}
+		{934818FF-E9CC-45C3-A22B-2FF634E2E0F0} = {934818FF-E9CC-45C3-A22B-2FF634E2E0F0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs01.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MSBee\\MSBee.csproj
+		SccProjectName1 = MSBee
+		SccLocalPath1 = MSBee
+		SccProjectUniqueName2 = MSBeeUnitTests\\MSBeeUnitTests.csproj
+		SccProjectName2 = MSBeeUnitTests
+		SccLocalPath2 = MSBeeUnitTests
+		SccProjectUniqueName3 = MSBeeScenarioTests\\MSBeeScenarioTests.csproj
+		SccProjectName3 = MSBeeScenarioTests
+		SccLocalPath3 = MSBeeScenarioTests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug-Test|Any CPU = Debug-Test|Any CPU
+		FxCop-Release|Any CPU = FxCop-Release|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.Debug-Test|Any CPU.ActiveCfg = Debug-Test|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.Debug-Test|Any CPU.Build.0 = Debug-Test|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.FxCop-Release|Any CPU.ActiveCfg = FxCop-Release|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.FxCop-Release|Any CPU.Build.0 = FxCop-Release|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77BC76C3-336B-462E-B01F-A105ED16F3F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934818FF-E9CC-45C3-A22B-2FF634E2E0F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934818FF-E9CC-45C3-A22B-2FF634E2E0F0}.Debug-Test|Any CPU.ActiveCfg = Debug-Test|Any CPU
+		{934818FF-E9CC-45C3-A22B-2FF634E2E0F0}.Debug-Test|Any CPU.Build.0 = Debug-Test|Any CPU
+		{934818FF-E9CC-45C3-A22B-2FF634E2E0F0}.FxCop-Release|Any CPU.ActiveCfg = FxCop-Release|Any CPU
+		{934818FF-E9CC-45C3-A22B-2FF634E2E0F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED9EEC5-0E48-4DF4-8E67-5B52CF5D4EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED9EEC5-0E48-4DF4-8E67-5B52CF5D4EAE}.Debug-Test|Any CPU.ActiveCfg = Debug-Test|Any CPU
+		{EED9EEC5-0E48-4DF4-8E67-5B52CF5D4EAE}.Debug-Test|Any CPU.Build.0 = Debug-Test|Any CPU
+		{EED9EEC5-0E48-4DF4-8E67-5B52CF5D4EAE}.FxCop-Release|Any CPU.ActiveCfg = FxCop-Release|Any CPU
+		{EED9EEC5-0E48-4DF4-8E67-5B52CF5D4EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

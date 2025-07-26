@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BadRegistryKeyExists" xml:space="preserve">
+    <value>RegistryKey: {0} exists. Change to a different, non-existent key.</value>
+  </data>
+  <data name="ChangeBaseKey" xml:space="preserve">
+    <value>RegistryKey: {0} exists under {1}. Change the base key so {0} doesn't reside under it.</value>
+  </data>
+  <data name="ConvertMetadataToStringReturnedNonEmptyString" xml:space="preserve">
+    <value>ConvertItemMetadataToString should have returned an empty string.</value>
+  </data>
+  <data name="CopyReferencesFailed" xml:space="preserve">
+    <value>CopyReferences should have succeeded and thus returned true.</value>
+  </data>
+  <data name="CopyReferencesReturnedFalseWithNoRefs" xml:space="preserve">
+    <value>CopyReferences should return true when no references are specified.</value>
+  </data>
+  <data name="CopyResGenFailed" xml:space="preserve">
+    <value>CopyResGen should have succeeded and thus returned true.</value>
+  </data>
+  <data name="CreateOutputResourceNamesReturnedFalse" xml:space="preserve">
+    <value>MSBee.GenerateResource.CreateOutputResourcesNames returned false instead of true.</value>
+  </data>
+  <data name="CreateUniqueTempDirectoryFailed" xml:space="preserve">
+    <value>CreateUniqueTempDirectory failed.</value>
+  </data>
+  <data name="DeleteTempResGenPathFailed" xml:space="preserve">
+    <value>DeleteTempResGenPath should have succeeded and thus returned true.</value>
+  </data>
+  <data name="ExpectedRegistryValuesNotPresent" xml:space="preserve">
+    <value>Value {0} is not found under this key. Review the registry entry to confirm this assertion.</value>
+  </data>
+  <data name="FileDoesntExist" xml:space="preserve">
+    <value>{0} doesn't exist.</value>
+  </data>
+  <data name="FileNotCopied" xml:space="preserve">
+    <value>{0} was not copied to {1}.</value>
+  </data>
+  <data name="FileShouldExist" xml:space="preserve">
+    <value>{0} should have been created but it doesn't exist.</value>
+  </data>
+  <data name="GenerateResourceReturnedFalse" xml:space="preserve">
+    <value>GenerateResource.Execute returned false.</value>
+  </data>
+  <data name="GetSearchPathIgnoredDueToPermissions" xml:space="preserve">
+    <value>Test is ignored because user does not have enough permission to view/modify registry.</value>
+  </data>
+  <data name="GetSearchPathIgnoredKeyPresent" xml:space="preserve">
+    <value>Test is ignored because registry key is present on the system.</value>
+  </data>
+  <data name="ItemSpecValuesArentEqual" xml:space="preserve">
+    <value>The expected ItemSpec for the task is {0} but the actual ItemSpec is {1}.</value>
+  </data>
+  <data name="MetadataLengthIsEven" xml:space="preserve">
+    <value>The metadata array must have an odd length for this test.</value>
+  </data>
+  <data name="MetadataValuesArentEqual" xml:space="preserve">
+    <value>The expected value for {0} is "{1}" but the actual value is "{2}".</value>
+  </data>
+  <data name="NoReadOnlyReferences" xml:space="preserve">
+    <value>None of the provided references are read-only references.</value>
+  </data>
+  <data name="OutputResourcesHasUnexpectedLength" xml:space="preserve">
+    <value>The length of outputResources should be {0} but instead is {1}.</value>
+  </data>
+  <data name="PathDoesntEndWithSeparator" xml:space="preserve">
+    <value>{0} doesn't end with a path separator.</value>
+  </data>
+  <data name="RegistryKeyDoesntExist" xml:space="preserve">
+    <value>RegistryKey: {0} doesn't exist. Change to a key that exists.</value>
+  </data>
+  <data name="RegistryKeyMissingValues" xml:space="preserve">
+    <value>The registryKey should have values beneath it but the list of values has {0} entries.</value>
+  </data>
+  <data name="SetItemMetadataReturnedNonNull" xml:space="preserve">
+    <value>SetItemMetadata should have returned null.</value>
+  </data>
+  <data name="TaskFailed" xml:space="preserve">
+    <value>{0} returned false.</value>
+  </data>
+  <data name="TaskItemStringContainsEmptyValue" xml:space="preserve">
+    <value>The string representation of the TaskItem contains {0} even though it has an empty value.</value>
+  </data>
+  <data name="TaskItemStringIsMissing" xml:space="preserve">
+    <value>The string representation of the TaskItem is missing the string {0}.</value>
+  </data>
+  <data name="TempDirectoryNotCreated" xml:space="preserve">
+    <value>The temp directory wasn't created.</value>
+  </data>
+  <data name="TempResGenDirectoryStillExists" xml:space="preserve">
+    <value>{0} should have been deleted by DeleteTempResGenPath but still exists.</value>
+  </data>
+  <data name="ToolNameIsIncorrect" xml:space="preserve">
+    <value>MSBee.GenerateResource.ToolName was set to {0} instead of {1}.</value>
+  </data>
+  <data name="UnexpectedRegistryValuesPresent" xml:space="preserve">
+    <value>No values for registry key {0} should be present at depth {1}.</value>
+  </data>
+  <data name="UnexpectedResolvedFileEntry" xml:space="preserve">
+    <value>The sample output file contains an unexpected resolvedFile entry with its ItemSpec set to {0}.</value>
+  </data>
+  <data name="WrongBaseKeyReturned" xml:space="preserve">
+    <value>GetBaseRegistryKey returned {0} as the base key, instead of returning {1}.</value>
+  </data>
+  <data name="WrongFrameworkPath" xml:space="preserve">
+    <value>The Framework path is expected to be {0} but the task returned {1} as the path.</value>
+  </data>
+  <data name="WrongFrameworkSDKPath" xml:space="preserve">
+    <value>The Framework SDK path is expected to be {0} but the task returned {1} as the path.</value>
+  </data>
+  <data name="WrongResourceNameWasGenerated" xml:space="preserve">
+    <value>The expected resource name for {0} is {1} but {2} was generated instead.
+</value>
+  </data>
+</root>

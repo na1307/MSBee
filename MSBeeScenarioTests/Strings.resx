@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ALNotFound" xml:space="preserve">
+    <value>The Assembly Linker (AL) was not run or did not output to {0} in this build.</value>
+  </data>
+  <data name="BuildTargetsDoNotMatch" xml:space="preserve">
+    <value>The expected build target was {0} but at least one build was done using a different target.</value>
+  </data>
+  <data name="ConfigurationNameMismatch" xml:space="preserve">
+    <value>The {0} configuration is not specified in the test configuration file.</value>
+  </data>
+  <data name="ConfigurationsDoNotMatch" xml:space="preserve">
+    <value>The expected configuration was {0} but it was not built.</value>
+  </data>
+  <data name="ExitCodesDoNotMatch" xml:space="preserve">
+    <value>The expected exit code is {0} but the actual exit code was {1}.</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} should have been produced by the build but doesn't exist.</value>
+  </data>
+  <data name="FileShouldNotExist" xml:space="preserve">
+    <value>{0} should not exist but does.</value>
+  </data>
+  <data name="FileWasNotProducedByThisBuild" xml:space="preserve">
+    <value>{0} was created earlier than {1} seconds ago: {2}.</value>
+  </data>
+  <data name="FrameworkVersionsDoNotMatch" xml:space="preserve">
+    <value>It was expected that this test would be built targeting the {0} version of .Net Framework but at least one project was built with this compiler version: {1} </value>
+  </data>
+  <data name="FunctionFailed" xml:space="preserve">
+    <value>{0} failed.</value>
+  </data>
+  <data name="FunctionPassed" xml:space="preserve">
+    <value>{0} passed.</value>
+  </data>
+  <data name="InvalidExpectedTarget" xml:space="preserve">
+    <value>The Expected Target XML tag has an invalid value of {0}.</value>
+  </data>
+  <data name="InvalidFrameworkVersion" xml:space="preserve">
+    <value>The FrameworkVersion XML tag has an invalid value of {0}.</value>
+  </data>
+  <data name="LinkedResourceNotFound" xml:space="preserve">
+    <value>The resource {0} was not included into the {1} resource dll</value>
+  </data>
+  <data name="MissingProjectConfiguration" xml:space="preserve">
+    <value>A project configuration is required.</value>
+  </data>
+  <data name="MissingProjectName" xml:space="preserve">
+    <value>A project name is required.</value>
+  </data>
+  <data name="NETFrameworkFileWasNotFound" xml:space="preserve">
+    <value> {0} was not found, or the .NET Framework {1} is not installed. The function is looking for {0} in the .NET Framework directory beneath the location specified in the value of the registry key {2}.  You may be able to solve the problem by doing one of the following: 1.) Install the .NET Framework. 2.) Manually set the above registry key to the correct location. </value>
+  </data>
+  <data name="NoLinkedResources" xml:space="preserve">
+    <value>No  LinkedResource elements in config file under  &lt;LinkedResources Name ={0}&gt;</value>
+  </data>
+  <data name="NullFrameworkVersion" xml:space="preserve">
+    <value>The FrameworkVersion XML tag contains no value.</value>
+  </data>
+  <data name="NumberOfErrorsDoNotMatch" xml:space="preserve">
+    <value>The expected number of errors is {0} but the actual number of errors was {1}.</value>
+  </data>
+  <data name="NumberOfWarningsDoNotMatch" xml:space="preserve">
+    <value>The expected number of warnings is {0} but the actual number of warnings was {1}.</value>
+  </data>
+  <data name="ReferenceNotFound" xml:space="preserve">
+    <value>Expected reference {0} was not passed to the compiler.</value>
+  </data>
+  <data name="RequiredAttributeIsMissing" xml:space="preserve">
+    <value>A required XML attribute {0} is missing in the {1} element.</value>
+  </data>
+  <data name="RequiredElementIsMissing" xml:space="preserve">
+    <value>A required XML element {0} is missing.
+</value>
+  </data>
+  <data name="ResourceNotFound" xml:space="preserve">
+    <value>Expected resource {0} was not passed to the compiler.</value>
+  </data>
+  <data name="TargetBuildUnsupported" xml:space="preserve">
+    <value>Testing with /t:Build is unsupported. MSBee does not do incremental builds  so /t:Build behaves the same as /t:Rebuild</value>
+  </data>
+</root>

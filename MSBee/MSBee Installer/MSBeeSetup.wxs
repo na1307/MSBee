@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2003/01/wi'>
+  <Product Name='MSBee' Id='5DD465DE-5024-4716-ACE9-F912385CD19F'
+    Language='1033' Codepage='1252' Version='1.0.0' Manufacturer='Microsoft Corporation'>
+
+    <Package Id='????????-????-????-????-????????????' 
+      Keywords='Installer'
+      Comments='The MSBee tool is an extension and task set for the MSBuild engine that allows you to build a .NET 1.1 binary for several Visual Studio 2005 project types.'
+      Manufacturer='Microsoft Corporation'
+      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <!--
+    These condition tags represent conditions that must be met for the installer to run. 
+    The LaunchConditions action in the InstallExecuteSequence causes the installer to check each condition.
+    -->
+
+    <Property Id="FRAMEWORK11MISSINGURL"><![CDATA[http://msdn.microsoft.com/netframework/downloads/framework1_1/default.aspx]]></Property>
+    <Property Id="FRAMEWORK20MISSINGURL"><![CDATA[http://msdn.microsoft.com/netframework/downloads/updates]]></Property>
+
+    <Property Id="FRAMEWORK11">
+      <RegistrySearch Id='Framework11Registry' Type='raw'
+        Root='HKLM' Key='Software\Microsoft\NET Framework Setup\NDP\v1.1.4322' Name='Install' />
+    </Property>
+    
+    <!-- The # in front of the number 1 indicates that 1 is a DWORD in the registry. -->
+    <Condition Message="MSBee requires .NET Framework 1.1, which is not present on the computer. You may download it from: [FRAMEWORK11MISSINGURL]">
+      FRAMEWORK11 = "#1"
+    </Condition>
+
+    <Property Id="FRAMEWORK11SDK">
+      <RegistrySearch Id='Framework11SDKRegistry' Type='raw'
+        Root='HKLM' Key='Software\Microsoft\.NETFramework' Name='sdkInstallRootv1.1' />
+    </Property>
+
+    <!-- For the .NET 1.1 SDK, only check that the registry key exists since its value is a path that is machine dependent. -->
+    <Condition Message="MSBee requires .NET Framework 1.1 SDK, which is not present on the computer. You may download it from: [FRAMEWORK11MISSINGURL]">
+      FRAMEWORK11SDK
+    </Condition>
+
+    <Property Id='FRAMEWORK20'>
+      <RegistrySearch Id='Framework20Registry' Type='raw'
+        Root='HKLM' Key='Software\Microsoft\NET Framework Setup\NDP\v2.0.50727' Name='Install' />
+    </Property>
+
+    <Condition Message="MSBee requires .NET Framework 2.0, which is not present on the computer. You may download it from: [FRAMEWORK20MISSINGURL]">
+      FRAMEWORK20 = "#1"
+    </Condition>
+
+    <Condition Message="You need to be an administrator to install this product.">
+      Privileged
+    </Condition>
+
+    <!--
+    Set this property to 1 by default so shortcuts are installed for silent installs. 
+    -->
+    <Property Id="ADDSHORTCUTS">1</Property>
+
+    <!-- 
+    Schedules the checking of launch conditions and controls shortcut creation.
+    For shortcut creation, the shortcuts are created only during an installation and only
+    when the ADDSHORTCUTS property is set. This property is set when the user checks the 
+    available checkbox. 
+    -->
+
+    <InstallExecuteSequence>
+      <LaunchConditions>NOT Installed</LaunchConditions>
+      <CreateShortcuts>ADDSHORTCUTS AND NOT Installed</CreateShortcuts>
+    </InstallExecuteSequence>
+
+    <Media Id='1' Cabinet='MSBee.cab' EmbedCab='yes' />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='MSBuildFolder' Name='MSBuild'>
+          <Directory Id='INSTALLDIR' Name='MSBee'>
+
+            <!--
+            The short names for the files are obtained by using dir /X in a directory where the files exist.
+            -->
+
+            <Component Id='MSBee' Guid='38AD3462-E99A-4F72-8511-40468136BB75'>
+              <File Id='MSBeeDLL' Name='MSBee.dll' LongName='MSBee.dll' DiskId='1'
+                src='MSBee bin\MSBee.dll' Vital='yes'>
+              </File>
+              <File Id='CommonTargets' Name='MSBUILCO.TAR' LongName='MSBuildExtras.Fx1_1.Common.targets' DiskId='1'
+                src='MSBee bin\MSBuildExtras.FX1_1.Common.targets' Vital='yes'>
+              </File>
+              <File Id='CSharpTargets' Name='MSBUILCS.TAR' LongName='MSBuildExtras.Fx1_1.CSharp.targets' DiskId='1'
+                src='MSBee bin\MSBuildExtras.Fx1_1.CSharp.targets' Vital='yes'>
+              </File>
+              <File Id='VBasicTargets' Name='MSBUILVB.TAR' LongName='MSBuildExtras.Fx1_1.VisualBasic.targets' DiskId='1'
+                src='MSBee bin\MSBuildExtras.Fx1_1.VisualBasic.targets' Vital='yes'>
+              </File>
+              <File Id='RCRExe' Name='RCRFX1_1.exe' LongName='RCRFX1_1.exe' DiskId='1'
+                src='MSBee bin\RCRFX1_1.exe' Vital='yes'>
+              </File>
+              <File Id='RCRConfig' Name='RCRFX1_1.CON' LongName='RCRFX1_1.exe.config' DiskId='1'
+                src='MSBee bin\RCRFX1_1.exe.config' Vital='yes'>
+              </File>
+              <File Id='MSBeeReadMe' Name='MSBEERME.DOC' LongName='MSBee ReadMe.doc' DiskId='1'
+                src='MSBee bin\MSBee ReadMe.doc' Vital='yes'>
+                <Shortcut Id="StartMenuDoc" Show="normal" Directory="ProgramMenuSubDir" Name="MSBEERM" LongName="MSBee ReadMe" />
+              </File>
+              <RemoveFolder Id='ProgramMenuSubDir' On='uninstall' />
+            </Component>
+         
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <!-- 
+      This is the shortcut directory path
+      -->
+
+      <Directory Id="ProgramMenuFolder" Name="PMenu" LongName="Programs">
+        <Directory Id="ProgramMenuDir" Name="PWRTYSVS" LongName="Power Toys for Visual Studio">
+          <Directory Id="ProgramMenuSubDir" Name="MSBee" />
+        </Directory>
+      </Directory>
+
+    </Directory>
+
+    <Feature 
+      Id='Complete' 
+      Title='MSBee' 
+      Description='The MSBee tool is an extension and task set for the MSBuild engine that allows you to build a .NET 1.1 binary for several Visual Studio 2005 project types.'
+      Display='expand' 
+      Level='1'
+      ConfigurableDirectory='INSTALLDIR'
+    >
+      <ComponentRef Id='MSBee' />
+    </Feature>
+
+    <!-- 
+    The LaunchConditions conditional ensures we only check registry keys during install.
+    The same conditional is used in the Show element to prevent the ReadyToInstall dialog from appearing during uninstall.
+    -->
+
+    <InstallUISequence>
+      <LaunchConditions>NOT Installed</LaunchConditions>
+    </InstallUISequence>
+
+    <UIRef Id="WixUI" />
+
+    <!-- 
+    Set properties for the Add/Remove Programs (ARP) entry.
+    -->
+
+    <Property Id="ARPPRODUCTICON">arpicon.ico</Property>
+    <Icon Id="arpicon.ico" src="Bitmaps\powertoys.ico" />
+    <Property Id="ARPHELPLINK"><![CDATA[http://go.microsoft.com/fwlink/?LinkId=59382]]></Property>
+    <Property Id="ARPURLINFOABOUT"><![CDATA[http://go.microsoft.com/fwlink/?LinkId=59384]]></Property>
+    <Property Id="ARPCONTACT"><![CDATA[Microsoft Corporation]]></Property>
+    <Property Id="ARPCOMMENTS"><![CDATA[The MSBee tool is an extension and task set for the MSBuild engine that allows you to build a .NET 1.1 binary for several Visual Studio 2005 project types.]]></Property>
+  
+  </Product>
+</Wix>

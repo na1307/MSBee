@@ -1,0 +1,1404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+This file holds test configuration information for each test project. 
+For all test projects, you can check all, some, or even none of the conditions listed below.
+Note that if you check none of the conditions, the project will be built using the build
+configurations you specified but no verifications of build success will be performed.
+
+1. The expected exit code from MSBuild: 0 for success and 1 for build failure
+
+2. The expected number of warnings: Parsed from the build log
+
+3. The expected number of errors: Parsed from the build log
+
+4. The generated files: Files that should have been produced by the build
+The TimeInterval parameter is in seconds and is used to compare each
+generated file's last write time to the current time during the test.
+This ensures that the file was generated during that test's build and 
+doesn't exist from a previous run. On slower machines, you may need to 
+increase the interval to account for longer build times for test projects.
+  
+5. Not generated files: Files that should not have been produced by the build
+(useful to confirm a build failed or to check for a difference between .NET 2.0
+and .NET 1.1 behavior).
+
+6. The expected .NET Framework targeted by the test: This check supports v1.1 and
+v2.0 The user may enter the short version (e.g. v1.1)or the long version (e.g. v2.0.50727)
+This check will assert if any project is built with a different version or the user enters 
+an invalid value (e.g. V1.0 or v2.1).
+
+7. The expected build target can be verified using the ExpectedTarget tag. 
+The allowed values are Clean or Rebuild. This check is often used in
+conjunction with the OverrideCommonParameters tag described below. This test will
+assert if the the XML contains an invalid value or if any project was not built with
+the expected build target. Testing with the ExpectedTarget tag set to Build is currently 
+unsupported. MSBee does not do incremental builds so /t:Build behaves the same as
+/t:Rebuild.
+
+8. Resources that should be passed to the compiler can be verified using the following
+construct directly under <TestValues>
+<Resources>
+<Resource Name = foo/>
+<Resource Name = bar/>
+</Resources> 
+NOTE: Matches are case sensitive so "Foo" != "foo"
+
+9. Resources that should be incorporated into a resource DLL by AL.exe can be verified using the
+following construct directly under <TestValues>:
+      <LinkedResourceDLLs>
+        <DLL Name="foobar.resources.dll">
+          <LinkedResource Name="foo"/>
+          <LinkedResource Name="bar"/>
+        </DLL>
+        <DLL Name="MurphysLaw.resources.dll">
+          <LinkedResource Name="BuckPasser"/>
+        </DLL>
+      </LinkedResourceDLLs>
+NOTE: Matches are case sensitive so "BuckPasser" != "Buckpasser"
+
+      
+10. References that should be passed to the compiler can be verified using the following construct
+directly under <TestValues>:
+      <References>
+        <Reference Name="System.dll"/>
+        <Reference Name="System.Xml.dll"/>
+      </References>
+NOTE: Matches are case sensitive so "System.Xml.dll" != "System.XML.dll"
+
+For all tests: 
+- The TestPath and ProjectParameters elements must be specified in the Common group.
+- The SolutionPath must be specified for each test, and is relative to the TestPath in the Common section.
+- At least one project configuration must be specified.
+
+The ProjectParameters in the Common section are the parameters that are passed
+to MSBuild when building a test project.
+
+A test can override the common ProjectParameters by using the OverrideCommonParameters
+tag. This tag should be a primary node within the test definition. It should not be 
+embedded within other nodes such as TestValues.
+-->
+<ScenarioTests>
+  <Common>
+    <TestPath>Test\Projects\PU\Converted\</TestPath>
+    <ProjectParameters>/p:TargetFX1_1=true /t:Rebuild</ProjectParameters>
+  </Common>
+  
+  <!--
+  This set of tests demonstrate that MSBee correctly resolves various types 
+  of assembly references.
+  -->
+  <SingleLevelCrossProjRefSln>
+    <!--The SingleLevelCrossProjRefSln test verifies that MSBee correctly resolves same language 
+    and cross language references to dll projects in the same solution. The solution creates a 
+    library in VB and C#. It also contains Console App, Class Library and Windows App projects 
+    in both C# and VB that reference both the base libraries. All references are direct 
+    or single level.
+    -->
+    <SolutionPath>ResolveAssemblyReferences\CrossProjectRefs\SingleLevelTest\SingleLevelSln\SingleLevelCrossProjRef.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <References>
+        <Reference Name="CSClassLibrary.dll"/>
+        <Reference Name="VBClassLibrary.dll"/>
+        <Reference Name="System.Data.dll"/>
+        <Reference Name="System.dll"/>
+        <Reference Name="System.Xml.dll"/>
+      </References>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\CSClassLibrary\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSConsoleApplication.exe"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSConsoleApplication.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSWindowsApplication.exe"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSWindowsApplication.pdb"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSWindowsService.exe"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSWindowsService.pdb"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary2.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary2.pdb"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\VBClassLibrary2.dll"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\VBClassLibrary2.pdb"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.exe"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\VBWindowsApplication.exe"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\VBWindowsApplication.pdb"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\VBWindowsService.exe"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\VBWindowsService.pdb"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+       </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\CSClassLibrary.dll"/>
+ 
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSConsoleApplication.exe"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\VBClassLibrary.dll"/>
+ 
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Release\CSWindowsApplication.exe"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Release\VBClassLibrary.dll"/>
+
+          <File Name="..\CSWindowsService\bin\FX1_1\Release\CSWindowsService.exe"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Release\VBClassLibrary.dll"/>
+ 
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Release\CSClassLibrary2.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Release\VBClassLibrary.dll"/>
+ 
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Release\VBClassLibrary2.dll"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Release\VBClassLibrary.dll"/>
+
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.exe"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBClassLibrary.dll"/>
+
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Release\VBWindowsApplication.exe"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Release\VBClassLibrary.dll"/>
+
+          <File Name="..\VBWindowsService\bin\FX1_1\Release\VBWindowsService.exe"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Release\VBClassLibrary.dll"/>
+        </GeneratedFiles>
+        <!--The debug symbol files should not be produced in Release mode-->
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\VBClassLibrary.pdb"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\CSClassLibrary.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSConsoleApplication.pdb"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Release\CSWindowsApplication.pdb"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Release\CSWindowsService.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.pdb"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Release\VBWindowsApplication.pdb"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Release\VBWindowsService.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </SingleLevelCrossProjRefSln>
+  
+  <CrossProjMultiLevelSln>
+    <!--The CrossProjMultiLevelSln test verifies that MSBee correctly resolves 
+    same language and cross language references to classes in dll projects in 
+    the same solution. The references are chained so that the VB console application refers
+    to a C# library which in turn refers to a VB library which refers to another C# library
+    and so on.
+    
+    The test also verifies that the copylocal flag setting is honored by MSBee. The first 3 
+    references have copylocal set to true. The 4th reference has copylocal set false and the 
+    5th has it set true. If MSBee behaves as expected references 4 and 5 will not be copied to 
+    console application's output directory but references 1, 2, and 3 will be.
+    -->
+    <SolutionPath>ResolveAssemblyReferences\CrossProjectRefs\MultiLevelTest\CrossProjMultiLevelSln\CrossProjMultiLevelRefs.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.dll"/>
+          <!--The debug symbol files should be produced in Debug config mode-->
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.pdb"/>
+
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference5_CS.dll"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference5_CS.dll"/>
+          <!--The debug symbol files should NOT be produced in Release config mode-->
+          <File Name="bin\FX1_1\Release\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </CrossProjMultiLevelSln>
+  
+  <SingleLevelFileRefSln>
+    <!--The SingleLevelFileRefSln verifies that MSBee correctly resolves same language 
+    and cross language references to dll projects that are NOT in the same solution. The 
+    solution is a simple variation on the SingleLevelCrossProjRefSln test. This solution simply
+    excludes the VB and C# base libraries that the SingleLevelCrossProjRefSln test created and 
+    refers to them as files.
+    
+    We also changed copylocal to False for the C# references to the VB and C# base libraries.
+    Since we insured that ReferencePath was not set, this test also demonstrates that MSBee
+    honors the HintPath setting for the references.
+    
+    Everything else should be the same as the SingleLevelCrossProjRefSln test.
+    -->
+    <SolutionPath>ResolveAssemblyReferences\FileRefs\SingleLevelTest\SingleLevelFileRefSln\SingleLevelFileRef.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSConsoleApplication.exe"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSConsoleApplication.pdb"/>
+
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSWindowsApplication.exe"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSWindowsApplication.pdb"/>
+
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSWindowsService.exe"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSWindowsService.pdb"/>
+
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary2.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary2.pdb"/>
+
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\VBClassLibrary2.dll"/>
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Debug\VBClassLibrary2.pdb"/>
+
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.exe"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.pdb"/>
+
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\VBWindowsApplication.exe"/>
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Debug\VBWindowsApplication.pdb"/>
+
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\VBWindowsService.exe"/>
+          <File Name="..\VBWindowsService\bin\FX1_1\Debug\VBWindowsService.pdb"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Since they are not part of the solution, the library projects should not 
+              be recompiled-->
+          <File Name="bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <!--Since we set copylocal=false, we should not see these copies of the libs-->
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSWindowsService\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSConsoleApplication.exe"/>
+
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Release\CSWindowsApplication.exe"/>
+
+          <File Name="..\CSWindowsService\bin\FX1_1\Release\CSWindowsService.exe"/>
+
+          <File Name="..\CSClassLibrary2\bin\FX1_1\Release\CSClassLibrary2.dll"/>
+
+          <File Name="..\VBClassLibrary2\bin\FX1_1\Release\VBClassLibrary2.dll"/>
+
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.exe"/>
+
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Release\VBWindowsApplication.exe"/>
+
+          <File Name="..\VBWindowsService\bin\FX1_1\Release\VBWindowsService.exe"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--The debug symbol files should not be produced in Release mode-->
+          <File Name="bin\FX1_1\Release\VBClassLibrary.pdb"/>
+
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\CSClassLibrary.pdb"/>
+
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSConsoleApplication.pdb"/>
+
+          <File Name="..\CSWindowsApplication\bin\FX1_1\Release\CSWindowsApplication.pdb"/>
+
+          <File Name="..\CSWindowsService\bin\FX1_1\Release\CSWindowsService.pdb"/>
+
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.pdb"/>
+
+          <File Name="..\VBWindowsApplication\bin\FX1_1\Release\VBWindowsApplication.pdb"/>
+
+          <File Name="..\VBWindowsService\bin\FX1_1\Release\VBWindowsService.pdb"/>
+          <!--Since they are not part of the solution, the library projects should not 
+              be recompiled-->
+          <File Name="bin\FX1_1\Release\VBClassLibrary.dll"/>
+
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\CSClassLibrary.dll"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </SingleLevelFileRefSln>
+  <!-- The MultiLevelFileRefSln test verifies that MSBee correctly resolves 
+    same language and cross language references to classes in dll projects that are NOT in 
+    the same solution. 
+    
+    This test is a variation of the CrossProjMultiLevelSln test. All the libraries were 
+    excluded from the project. The chain of references initiated by the console app's
+    reference to Reference1_CS.dll was changed to a file reference.
+    
+    We also changed copylocal to False for the reference to Reference1_CS.dll. So, none of
+    the libraries should be in the app's output folder.
+    
+    Since we insured that ReferencePath was not set, this test also demonstrates that MSBee
+    honors the HintPath setting for the reference.
+    
+    Everything else should be the same as the CrossProjMultiLevelSln test.
+  -->
+  <MultiLevelFileRefSln>
+    <SolutionPath>ResolveAssemblyReferences\FileRefs\MultiLevelTest\MultiLevelFileRefSln\MultiLevelFileRefs.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.exe"/>
+          <!--The debug symbol files should be produced in Debug config mode-->
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.pdb"/>
+
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBConsoleApp.exe"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference5_CS.dll"/>
+          <!--The debug symbol files should NOT be produced in Release config mode-->
+          <File Name="bin\FX1_1\Release\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues> 
+  </MultiLevelFileRefSln>
+  
+  <!-- This block of tests are general build tests and verify some basic functionality 
+  that is not checked in other tests. They all use the same solution:
+  FileRefs\MultiLevelTest\MultiLevelFileRefSln\MultiLevelFileRefs.sln    
+  -->
+  <!--This test is a general build test and verifies the following things:
+    1. The build targets the V1.1 framework
+    2. The build target is Rebuild 
+    3. That MSBee can build solutions using custom configuration files
+  -->
+  <GenBuildForDotNetV1dot1>
+    <SolutionPath>ResolveAssemblyReferences\FileRefs\MultiLevelTest\MultiLevelFileRefSln\MultiLevelFileRefs.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <ExpectedTarget>Rebuild</ExpectedTarget>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.exe"/>
+          <!--The debug symbol files should be produced in Debug config mode-->
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.pdb"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\FX1_1\Debug\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBConsoleApp.exe"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\FX1_1\Release\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference5_CS.dll"/>
+          <!--The debug symbol files should NOT be produced in Release config mode-->
+          <File Name="bin\FX1_1\Release\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <!--This custom configuration is simply a clone of Release-->
+      <Configuration Name="CustomConfig">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\CustomConfig\VBConsoleApp.exe"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\FX1_1\CustomConfig\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\CustomConfig\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\CustomConfig\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <!--This custom configuration is a clone of Debug-->
+      <Configuration Name="CustomDebugConfig">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\CustomDebugConfig\VBConsoleApp.exe"/>
+          <!--The debug symbol files should be produced in CustomDebugConfig config mode-->
+          <File Name="bin\FX1_1\CustomDebugConfig\VBConsoleApp.pdb"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\CustomDebugConfig\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </GenBuildForDotNetV1dot1>
+
+  <!-- This is a general build test that demonstrates MSBee targets V2.0 when the 
+  TargetFX1_1 property is set to false.
+  -->
+  <GenBuildForDotNetV2dot0>
+    <OverrideCommonParameters>/p:TargetFX1_1=false /t:Rebuild</OverrideCommonParameters>
+    <SolutionPath>ResolveAssemblyReferences\FileRefs\MultiLevelTest\MultiLevelFileRefSln\MultiLevelFileRefs.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v2.0</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>1</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\VBConsoleApp.exe"/>
+          <!--The debug symbol files should be produced in Debug config mode-->
+          <File Name="bin\VBConsoleApp.pdb"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\Reference1_CS.dll"/>
+          <File Name="bin\Reference2_VB.dll"/>
+          <File Name="bin\Reference3_CS.dll"/>
+          <File Name="bin\Reference4_VB.dll"/>
+          <File Name="bin\Reference5_CS.dll"/>
+          <File Name="bin\Reference1_CS.pdb"/>
+          <File Name="bin\Reference2_VB.pdb"/>
+          <File Name="bin\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>1</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\VBConsoleApp.exe"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\Reference1_CS.dll"/>
+          <File Name="bin\Reference2_VB.dll"/>
+          <File Name="bin\Reference3_CS.dll"/>
+          <File Name="bin\Reference4_VB.dll"/>
+          <File Name="bin\Reference5_CS.dll"/>
+          <!--The debug symbol files should NOT be produced in Release config mode-->
+          <File Name="bin\VBConsoleApp.pdb"/>
+          <File Name="bin\Reference1_CS.pdb"/>
+          <File Name="bin\Reference2_VB.pdb"/>
+          <File Name="bin\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </GenBuildForDotNetV2dot0>
+
+  <!-- This is a general build test that demonstrates MSBee targets V2.0 when the 
+  TargetFX1_1 property is not provided by the user. This also serves as a negative test
+  for the BaseFX1_1OutputPath property; it confirms that setting this property when
+  not building with MSBee doesn't affect the output path.
+  -->
+  <GenBuildForDotNetV2dot0Too>
+    <OverrideCommonParameters>/p:BaseFX1_1OutputPath=bin\altFX1_1\ /t:Rebuild</OverrideCommonParameters>
+    <SolutionPath>ResolveAssemblyReferences\FileRefs\MultiLevelTest\MultiLevelFileRefSln\MultiLevelFileRefs.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v2.0.50727</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>1</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\VBConsoleApp.exe"/>
+          <!--The debug symbol files should be produced in Debug config mode-->
+          <File Name="bin\VBConsoleApp.pdb"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\Reference1_CS.dll"/>
+          <File Name="bin\Reference2_VB.dll"/>
+          <File Name="bin\Reference3_CS.dll"/>
+          <File Name="bin\Reference4_VB.dll"/>
+          <File Name="bin\Reference5_CS.dll"/>
+          <File Name="bin\Reference1_CS.pdb"/>
+          <File Name="bin\Reference2_VB.pdb"/>
+          <File Name="bin\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>1</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\VBConsoleApp.exe"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\Reference1_CS.dll"/>
+          <File Name="bin\Reference2_VB.dll"/>
+          <File Name="bin\Reference3_CS.dll"/>
+          <File Name="bin\Reference4_VB.dll"/>
+          <File Name="bin\Reference5_CS.dll"/>
+          <!--The debug symbol files should NOT be produced in Release config mode-->
+          <File Name="bin\VBConsoleApp.pdb"/>
+          <File Name="bin\Reference1_CS.pdb"/>
+          <File Name="bin\Reference2_VB.pdb"/>
+          <File Name="bin\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </GenBuildForDotNetV2dot0Too>
+
+  <!-- This is a general build test that demonstrates MSBee honors the target property setting
+  when the user selects Clean
+  -->
+  <GenTestCleanTarget>
+    <SolutionPath>ResolveAssemblyReferences\FileRefs\MultiLevelTest\MultiLevelFileRefSln\MultiLevelFileRefs.sln</SolutionPath>
+    <OverrideCommonParameters>/p:TargetFX1_1=true /t:Clean</OverrideCommonParameters>
+    <TestValues>
+      <ExpectedTarget>Clean</ExpectedTarget>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.pdb"/>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\FX1_1\Debug\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\VBConsoleApp.exe"/>
+          <!--Copy local is set false for this test so these files should not be there.-->
+          <File Name="bin\FX1_1\Release\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference5_CS.dll"/>
+          <!--The debug symbol files should NOT be produced in Release config mode-->
+          <File Name="bin\FX1_1\Release\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </GenTestCleanTarget>
+
+  <!--
+    This block of tests confirm that the FX1_1 constant is being set and is properly
+    handled in sample projects. If FX1_1 is set, the build should succeed. If FX1_1
+    is not set, the build will fail due to a compiler error.
+  -->
+  <!--
+  These two tests target V1.1 so the FX1_1 constant should be set by MSBee's targets files.
+  -->
+  <CSharpAppFX1_1Constant>
+    <SolutionPath>FX1_1 Constant\CSharpConsoleApp\CSharpConsoleApp.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\CSharpConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Debug\CSharpConsoleApp.pdb"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\CSharpConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Release\CSharpConsoleApp.pdb"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </CSharpAppFX1_1Constant>
+  <VisualBasicAppFX1_1Constant>
+    <SolutionPath>FX1_1 Constant\VisualBasicConsoleApp\VisualBasicConsoleApp.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VisualBasicConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Debug\VisualBasicConsoleApp.pdb"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VisualBasicConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Release\VisualBasicConsoleApp.pdb"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </VisualBasicAppFX1_1Constant>
+
+  <!--
+  These two tests target V2.0 so MSBee's targets files should not be included and 
+  the FX1_1 constant should NOT be set. Consequently, we expect the build to fail for
+  these two tests.
+  -->
+  <CSharpAppFX1_1ConstantV2>
+    <SolutionPath>FX1_1 Constant\CSharpConsoleApp\CSharpConsoleApp.sln</SolutionPath>
+    <OverrideCommonParameters> /t:Rebuild</OverrideCommonParameters>
+    <TestValues>
+      <FrameworkVersion>v2.0</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>1</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>1</NumberOfErrors>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>1</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>1</NumberOfErrors>
+      </Configuration>
+    </TestValues>
+  </CSharpAppFX1_1ConstantV2>
+  <VisualBasicAppFX1_1ConstantV2>
+    <SolutionPath>FX1_1 Constant\VisualBasicConsoleApp\VisualBasicConsoleApp.sln</SolutionPath>
+    <OverrideCommonParameters> /t:Rebuild</OverrideCommonParameters>
+    <TestValues>
+      <FrameworkVersion>v2.0</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>1</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>1</NumberOfErrors>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>1</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>1</NumberOfErrors>
+      </Configuration>
+    </TestValues>
+  </VisualBasicAppFX1_1ConstantV2>
+
+  <!-- The following block of tests are basic COM tests
+  -->
+  <!--This test builds a C# console app with a single COM reference -->
+  <DirectCOMrefCSConsoleSln>
+    <SolutionPath>ResolveCOMReferences\DirectCOMRefCSConsole\DirectCOMrefCSConsoleSln\DirectCOMrefCSConsoleSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\CSConsoleApplication.exe"/>
+          <File Name="bin\FX1_1\Debug\CSConsoleApplication.pdb"/>
+          <File Name="bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--This file should not be produced if we're targetting V1.1-->
+          <File Name="bin\FX1_1\Debug\CSConsoleApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\CSConsoleApplication.exe"/>
+          <File Name="bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--This file should not be produced in Release configuration-->
+          <File Name="bin\FX1_1\Release\CSConsoleApplication.pdb"/>
+          <!--This file should not be produced if we're targetting V1.1-->
+          <File Name="bin\FX1_1\Release\CSConsoleApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </DirectCOMrefCSConsoleSln>
+
+  <!--This test builds a VB console app with a single COM reference -->
+  <DirectCOMrefVBConsoleSln>
+    <SolutionPath>ResolveCOMReferences\DirectCOMRefVBConsole\DirectCOMrefVBConsoleSln\DirectCOMrefVBConsoleSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBConsoleApplication.exe"/>
+          <File Name="bin\FX1_1\Debug\VBConsoleApplication.pdb"/>
+          <File Name="bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--This file should not be produced if we're targetting V1.1-->
+          <File Name="bin\FX1_1\Debug\VBConsoleApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBConsoleApplication.exe"/>
+          <File Name="bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <!--This file should not be produced in Release configuration-->
+          <File Name="bin\FX1_1\Release\VBConsoleApplication.pdb"/>
+          <!--This file should not be produced if we're targetting V1.1-->
+          <File Name="bin\FX1_1\Release\VBConsoleApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </DirectCOMrefVBConsoleSln>
+
+  <!--This test builds a C# WinForms app with a single COM reference -->
+  <DirectCOMrefCSWinFormsSln>
+    <SolutionPath>ResolveCOMReferences\DirectCOMrefCSWinForms\DirectCOMrefCSWinFormsSln\DirectCOMrefCSWinFormsSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+      <ExitCode>0</ExitCode>
+      <NumberOfWarnings>0</NumberOfWarnings>
+      <NumberOfErrors>0</NumberOfErrors>
+      <GeneratedFiles TimeInterval="60">
+        <File Name="bin\FX1_1\Debug\CSWindowsApplication.exe"/>
+        <File Name="bin\FX1_1\Debug\CSWindowsApplication.pdb"/>
+        <File Name="bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+      </GeneratedFiles>
+      <NotGeneratedFiles>
+        <!--This file should not be produced if we're targetting V1.1-->
+        <File Name="bin\FX1_1\Debug\CSWindowsApplication.vshost.exe"/>
+      </NotGeneratedFiles>
+    </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\CSWindowsApplication.exe"/>
+          <File Name="bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\CSWindowsApplication.pdb"/>
+          <!--This file should not be produced if we're targetting V1.1-->
+          <File Name="bin\FX1_1\Release\CSWindowsApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </DirectCOMrefCSWinFormsSln>
+
+  <!--This test builds a VB WinForms app with a single COM reference -->
+  <DirectCOMrefVBWinFormsSln>
+    <SolutionPath>ResolveCOMReferences\DirectCOMrefVBWinForms\DirectCOMrefVBWinFormsSln\DirectCOMrefVBWinFormsSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBWindowsApplication.exe"/>
+          <File Name="bin\FX1_1\Debug\VBWindowsApplication.pdb"/>
+          <File Name="bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\VBWindowsApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBWindowsApplication.exe"/>
+          <File Name="bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\VBWindowsApplication.pdb"/>
+          <File Name="bin\FX1_1\Release\VBWindowsApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </DirectCOMrefVBWinFormsSln>
+
+  <!--This test builds a solution with indirect COM references. A console app project references 
+   two dll projects that each have a COM reference; same language and cross language reference; 
+   both VC# and VB; the same com component is used in both cases. -->
+  <IndirectCOMrefSln>
+    <SolutionPath>ResolveCOMReferences\IndirectCOMref\IndirectCOMrefSln\IndirectCOMrefSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          <File Name="bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+          
+          <File Name="..\CSClassLibrary\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+          
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.exe"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSConsoleApplication.exe"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSConsoleApplication.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\CSClassLibrary.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.pdb"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\VBClassLibrary.xml"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Debug\VBConsoleApplication.xml"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Debug\VBClassLibrary.xml"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\VBClassLibrary.dll"/>
+          <File Name="bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+          
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+          
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.exe"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBClassLibrary.dll"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\CSClassLibrary.dll"/>
+          
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSConsoleApplication.exe"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\VBClassLibrary.dll"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSClassLibrary.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\VBClassLibrary.pdb"/>
+          <File Name="bin\FX1_1\Release\VBClassLibrary.xml"/>
+
+          <File Name="..\CSClassLibrary\bin\FX1_1\Release\CSClassLibrary.pdb"/>
+
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBClassLibrary.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\CSClassLibrary.pdb"/>
+          <File Name="..\VBConsoleApplication\bin\FX1_1\Release\VBConsoleApplication.xml"/>
+
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSConsoleApplication.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\CSClassLibrary.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\VBClassLibrary.pdb"/>
+          <File Name="..\CSConsoleApplication\bin\FX1_1\Release\VBClassLibrary.xml"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </IndirectCOMrefSln>
+
+  <!-- This test builds a solution that has multiple COM references-->
+  <MultipleComRefsSln>
+    <SolutionPath>ResolveCOMReferences\MultipleComRefs\MultipleComRefsSln\MultipleComRefsSln.sln</SolutionPath>
+    <TestValues>
+      <References>
+        <Reference Name="System.dll"/>
+        <Reference Name="System.Data.dll"/>
+        <Reference Name="System.XML.dll"/>
+        <Reference Name="Interop.QuartzTypeLib.dll"/>
+        <Reference Name="Interop.SpeechLib.dll"/>
+      </References>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>167</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\CSConsoleApplication.exe"/>
+          <File Name="bin\FX1_1\Debug\CSConsoleApplication.pdb"/>
+          <File Name="bin\FX1_1\Debug\Interop.QuartzTypeLib.dll"/>
+          <File Name="bin\FX1_1\Debug\Interop.SpeechLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\CSConsoleApplication.vshost.exe"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>167</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\CSConsoleApplication.exe"/>
+          <File Name="bin\FX1_1\Release\Interop.QuartzTypeLib.dll"/>
+          <File Name="bin\FX1_1\Release\Interop.SpeechLib.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\CSConsoleApplication.vshost.exe"/>
+          <File Name="bin\FX1_1\Release\CSConsoleApplication.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </MultipleComRefsSln>
+
+  <!-- These tests verify that MSBee's AssemblySearchPaths property was used.
+  --> 
+  <CandidateAssemblyFilesSln>
+    <!-- The CandidateAssemblyFilesSln test has had a DLL added to the project. This adds the 
+    path selected by the user to the CandidateAssemblyFiles list. The DLL was originally
+    built with VS 2003 and was copied to the project's directory. To insure that the solution 
+    was using the CandidateAssemblyFiles path, the ReferencePath properties were deleted
+    from the .user files and the HintPath settings were removed from the project files  
+    -->
+    <SolutionPath>SearchPaths\CandidateAssemblyFiles\CandidateAssemblyFilesSln\CandidateAssemblyFiles.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="obj\FX1_1\Debug\SimpleCSProj.exe"/>
+          <File Name="bin\FX1_1\Debug\SimpleCSProj.exe"/>
+          <File Name="bin\FX1_1\Debug\SimpleCSProj.exe"/>
+          <File Name="..\SimpleVBProj\bin\FX1_1\Debug\SimpleVBProj.exe"/>
+          <File Name="..\SimpleVBProj\bin\FX1_1\Debug\SimpleVBProj.pdb"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="obj\FX1_1\Release\SimpleCSProj.exe"/>
+          <File Name="bin\FX1_1\Release\SimpleCSProj.exe"/>
+          <File Name="..\SimpleVBProj\bin\FX1_1\Release\SimpleVBProj.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </CandidateAssemblyFilesSln>
+  
+  <HintPathSln>
+    <!-- The HintPathSln test references an assembly that is not part of the project. The 
+    referenced DLL was originally built with VS 2003 and copied to a directory 2 levels above the 
+    project's directory. To insure that the HintPath setting in the project file was used,
+    the ReferencePath properties were deleted from the .user files of both projects. 
+    -->
+    <SolutionPath>SearchPaths\HintPath\HintPathSln\HintPath.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\HintPath.exe"/>
+          <File Name="bin\FX1_1\Debug\HintPath.pdb"/>
+          <File Name="..\HintPathVbProj\bin\FX1_1\Debug\HintPathvb.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\HintPath.exe"/>
+          <File Name="..\HintPathVbProj\bin\FX1_1\Release\HintPathvb.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </HintPathSln>
+  
+  <OutputPathSln>
+    <!-- The OutputPathSln test references a DLL located in the project's output directory.
+    The DLL was originally built with VS 2003 and was copied to a directory 2 levels above
+    the project's directory. The project files were modified to include a BeforeBuild target
+    which copies the DLL and its .pdb file to the project's output directory. 
+    To insure that the solution was using the DLL in the output directory,
+    the ReferencePath properties were deleted from the .user files of both projects 
+    and the HintPath settings were removed from both project files.
+    -->
+    <SolutionPath>SearchPaths\OutputFolder\OutputPathSln\OutputPathSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\OutputPath.exe"/>
+          <File Name="bin\FX1_1\Debug\OutputPath.pdb"/>
+          <File Name="..\OutputPathVB\bin\FX1_1\Debug\OutputPathVB.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\OutputPath.exe"/>
+          <File Name="..\OutputPathVB\bin\FX1_1\Release\OutputPathVB.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </OutputPathSln>
+  
+  <OutputPathBeforeHintPathFromItemSln>
+    <!--The OutputPathBeforeHintPathFromItemSln demonstrates that MSBuild has honored the
+    AssemblySearchPaths setting in MSBuildExtras.FX1_1.Common.targets. The standard VS 2005
+    search order, found in Microsoft.Common.targets, places the project's output path last in the
+    search order and the item's HintPath as the third element. The VS 2003 search order
+    placed the project's output path second in the search and the HintPath setting as the seventh
+    path to be searched.
+    
+    This test includes a project which references Class1 in the SimpleDLL. A version of SimpleDLL.dll
+    which defines Class1 resides in a directory 2 levels above the project's directory. The 
+    project files were modified to include a BeforeBuild target
+    which copies the DLL and its .pdb file to the project's output directory. 
+
+    A version of SimpleDLL.dll which defines Class2 but not Class1 has been placed in the 
+    directory above the project and is referenced by HintPath. The build should fail when 
+    built with standard MSBuild but pass when built with MSBee.
+    -->
+    <SolutionPath>SearchPaths\SearchPathOrder\SearchPathOrderSln\SearchOrderSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfErrors>0</NumberOfErrors>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Debug\SearchPathOrder.exe"/>
+          <File Name="bin\FX1_1\Debug\SearchPathOrder.pdb"/>
+          <File Name="..\SearchPathOrderVB\bin\FX1_1\Debug\OutputPathVB.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfErrors>0</NumberOfErrors>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\FX1_1\Release\SearchPathOrder.exe"/>
+          <File Name="..\SearchPathOrderVB\bin\FX1_1\Release\OutputPathVB.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </OutputPathBeforeHintPathFromItemSln>
+
+  <!-- 
+  OutPathBeforeHintPathFailsIn2005 is the negative test which corresponds to OutputPathBeforeHintPathFromItemSln.
+  The build in this test is expected to fail because it will use HintPathFromItem before 
+  $(OutDir) and find the "bad" copy of the DLL.
+  -->
+  <OutPathBeforeHintPathFailsIn2005>
+    <SolutionPath>SearchPaths\SearchPathOrder\SearchPathOrderSln\SearchOrderSln.sln</SolutionPath>
+    <OverrideCommonParameters> /t:Rebuild</OverrideCommonParameters>
+    <TestValues>
+      <FrameworkVersion>v2.0</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>1</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>2</NumberOfErrors>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>1</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>2</NumberOfErrors>
+      </Configuration>
+    </TestValues>
+  </OutPathBeforeHintPathFailsIn2005>
+
+  <!--
+  The following two tests verify that MSBee allows the user to select the output directory for 
+  the build.
+  -->
+  <BaseFX1_1OutputPathWithSlash>
+  <SolutionPath>SearchPaths\SearchPathOrder\SearchPathOrderSln\SearchOrderSln.sln</SolutionPath>
+    <!--
+    Test the BaseFX1_1OutputPath property using a trailing slash on the path name.
+    -->
+    <OverrideCommonParameters>/p:BaseFX1_1OutputPath=bin\altFX1_1\ /p:TargetFX1_1=true /t:Rebuild</OverrideCommonParameters>
+    <TestValues>
+    <FrameworkVersion>v1.1</FrameworkVersion>
+    <Configuration Name="Debug">
+      <ExitCode>0</ExitCode>
+      <NumberOfErrors>0</NumberOfErrors>
+      <NumberOfWarnings>0</NumberOfWarnings>
+      <GeneratedFiles TimeInterval="60">
+        <File Name="bin\altFX1_1\Debug\SearchPathOrder.exe"/>
+        <File Name="bin\altFX1_1\Debug\SearchPathOrder.pdb"/>
+        <File Name="..\SearchPathOrderVB\bin\altFX1_1\Debug\OutputPathVB.exe"/>
+      </GeneratedFiles>
+    </Configuration>
+    <Configuration Name="Release">
+      <ExitCode>0</ExitCode>
+      <NumberOfErrors>0</NumberOfErrors>
+      <NumberOfWarnings>0</NumberOfWarnings>
+      <GeneratedFiles TimeInterval="60">
+        <File Name="bin\altFX1_1\Release\SearchPathOrder.exe"/>
+        <File Name="..\SearchPathOrderVB\bin\altFX1_1\Release\OutputPathVB.exe"/>
+      </GeneratedFiles>
+    </Configuration>
+  </TestValues>
+  </BaseFX1_1OutputPathWithSlash>
+
+  <BaseFX1_1OutputPathWithoutSlash>
+    <!--
+    Test the BaseFX1_1OutputPath property without putting a trailing slash on the path name.
+    -->
+    <OverrideCommonParameters>/p:BaseFX1_1OutputPath=bin\altFX1_1 /p:TargetFX1_1=true /t:Rebuild</OverrideCommonParameters>
+    <SolutionPath>SearchPaths\OutputFolder\OutputPathSln\OutputPathSln.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\altFX1_1\Debug\OutputPath.exe"/>
+          <File Name="bin\altFX1_1\Debug\OutputPath.pdb"/>
+          <File Name="..\OutputPathVB\bin\altFX1_1\Debug\OutputPathVB.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="bin\altFX1_1\Release\OutputPath.exe"/>
+          <File Name="..\OutputPathVB\bin\altFX1_1\Release\OutputPathVB.exe"/>
+        </GeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </BaseFX1_1OutputPathWithoutSlash>
+
+  <!--
+  This test demonstrates that MSBee allows you to build one project from a multiproject solution 
+  independently of the other projects in the solution.
+  
+  In this test, we build a dll from the CrossProjMultiLevelSln test used above. Nothing should be 
+  generated except the obj and bin copies of the selected dll.
+  -->
+  <SingleProjFromMultilevelSln>
+    <SolutionPath>ResolveAssemblyReferences\CrossProjectRefs\MultiLevelTest\Reference5_CS\Reference5_CS.csproj</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="obj\FX1_1\Debug\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference5_CS.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Debug\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Debug\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Debug\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+        <GeneratedFiles TimeInterval="60">
+          <File Name="obj\FX1_1\Release\Reference5_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference5_CS.dll"/>
+        </GeneratedFiles>
+        <NotGeneratedFiles>
+          <File Name="bin\FX1_1\Release\VBConsoleApp.exe"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.dll"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.dll"/>
+          <File Name="bin\FX1_1\Release\Reference4_VB.dll"/>
+          <File Name="bin\FX1_1\Release\VBConsoleApp.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference1_CS.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference2_VB.pdb"/>
+          <File Name="bin\FX1_1\Release\Reference3_CS.pdb"/>
+        </NotGeneratedFiles>
+      </Configuration>
+    </TestValues>
+  </SingleProjFromMultilevelSln>
+
+  <!-- 
+    This test exercises the case where a project has both a COM reference and a project reference.
+  -->
+  <COMReferenceAndProjectReference>
+    <SolutionPath>ResolveCOMReferences\COMRefProjectRef\COMRefProjectRef.sln</SolutionPath>
+    <TestValues>
+      <FrameworkVersion>v1.1</FrameworkVersion>
+      <Configuration Name="Debug">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+      </Configuration>
+      <Configuration Name="Release">
+        <ExitCode>0</ExitCode>
+        <NumberOfWarnings>0</NumberOfWarnings>
+        <NumberOfErrors>0</NumberOfErrors>
+      </Configuration>
+    </TestValues>
+  </COMReferenceAndProjectReference>
+</ScenarioTests>
