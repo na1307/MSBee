@@ -4,7 +4,7 @@
 
 > ⚠️ Primarily intended for legacy system maintenance or compatibility testing or just fun.
 
-The original MSBee 1.0 can be downloaded from [this link](https://github.com/na1307/MSBee/raw/refs/heads/main/MSBee%201.0%20Release.zip).
+The original MSBee 1.0 can be downloaded from [this link](https://github.com/na1307/MSBee/raw/refs/heads/original/MSBee%201.0%20Release.zip).
 
 ---
 
