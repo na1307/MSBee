@@ -15,6 +15,8 @@ jobs:
       NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
     steps:
       - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
       - name: MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
