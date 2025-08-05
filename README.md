@@ -7,6 +7,6 @@ Please note that MSBee only works properly with Visual Studio 2005. It will not 
 
 Therefore, it is not recommended to use this in practice. If you really want to use it, consider setting up a Windows XP virtual machine.
 
-MSBee 1.0 can be downloaded from [this link](https://github.com/na1307/MSBee/raw/refs/heads/main/MSBee%201.0%20Release.zip).
+MSBee 1.0 can be downloaded from [this link](https://github.com/na1307/MSBee/raw/refs/heads/original/MSBee%201.0%20Release.zip).
 
 This software is provided "as-is" for archival purposes.
