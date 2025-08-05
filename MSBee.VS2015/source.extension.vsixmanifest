@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="MSBee.VS2015.78a37fd2-5d05-4884-8b18-173e331f3472" Version="1.0" Language="en-US" Publisher="Bluehill" />
+        <DisplayName>MSBee (until Visual Studio 2015)</DisplayName>
+        <Description>Empty VSIX Project.</Description>
+    </Metadata>
+    <Installation InstalledByMsi="true">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0, 15.0)" />
+    </Installation>
+    <Dependencies>
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="CSharpEXE10" d:TargetPath="|CSharpEXE10;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="CSharpEXE11" d:TargetPath="|CSharpEXE11;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="CSharpConsole10" d:TargetPath="|CSharpConsole10;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="CSharpConsole11" d:TargetPath="|CSharpConsole11;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="CSharpDLL10" d:TargetPath="|CSharpDLL10;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="CSharpDLL11" d:TargetPath="|CSharpDLL11;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[14.0,15.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+</PackageManifest>

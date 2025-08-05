@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Windows Forms App (.NET Framework 1.1)</Name>
+    <Description>Windows Application</Description>
+    <Icon>CSharpEXE.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <LanguageTag>csharp</LanguageTag>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>1a6ecb18-ffd5-4799-af45-550118d5b917</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>WindowsApplication</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate11.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Form1.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

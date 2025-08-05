@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Console App (.NET Framework 1.1)</Name>
+    <Description>Console Application</Description>
+    <Icon>CSharpConsole.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <LanguageTag>csharp</LanguageTag>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>31876596-ccdc-41b3-9602-7910d8a30375</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>ConsoleApplication</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate11.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

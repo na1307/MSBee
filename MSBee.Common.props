@@ -1,0 +1,46 @@
+<Project>
+  <ItemGroup>
+    <ProjectReference Include="..\Projects\CSharpEXE\CSharpEXE10.csproj">
+      <Project>{bc958f0f-a4da-4146-b722-3580275c603b}</Project>
+      <Name>CSharpEXE10</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\Projects\CSharpEXE\CSharpEXE11.csproj">
+      <Project>{234CBF36-1673-42F4-BE78-38E29C258212}</Project>
+      <Name>CSharpEXE11</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\Projects\CSharpConsole\CSharpConsole10.csproj">
+      <Project>{D73CE984-7F1E-47F1-A25D-7C2EF30C4746}</Project>
+      <Name>CSharpConsole10</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\Projects\CSharpConsole\CSharpConsole11.csproj">
+      <Project>{8312BA0C-C34E-4B18-A0C9-808538A3844E}</Project>
+      <Name>CSharpConsole11</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\Projects\CSharpDLL\CSharpDLL10.csproj">
+      <Project>{9D910EC9-DA3F-4790-9BBD-F2D7CADC1A46}</Project>
+      <Name>CSharpDLL10</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\Projects\CSharpDLL\CSharpDLL11.csproj">
+      <Project>{0980605B-2CEA-4C86-997D-3945A25D197E}</Project>
+      <Name>CSharpDLL11</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
