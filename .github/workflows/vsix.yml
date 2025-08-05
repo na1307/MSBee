@@ -1,0 +1,52 @@
+name: VSIX
+on:
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    name: VSIX
+    runs-on: windows-latest
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+    steps:
+      - uses: actions/checkout@v4
+      - name: MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
+      - name: Increment VSIX version
+        id: vsix_version
+        if: github.event_name != 'release'
+        uses: timheuer/vsix-version-stamp@v2
+        with:
+          manifest-file: MSBee.VS2017\source.extension.vsixmanifest
+      - name: Build
+        run: msbuild MSBee.VS2017\MSBee.VS2017.csproj -r -p:Configuration=Release -p:DeployExtension=false
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}.vsix
+          path: MSBee.VS2017/bin/Release/*.vsix
+
+  publish:
+    name: Publish
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}.vsix
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '*.vsix'
