@@ -35,7 +35,8 @@ You're limited to **C# 1.0 or 1.2**, depending on the .NET Framework version. Th
 
 - File-scoped namespaces
 - Top-level statements
-- Nullable reference types
+- Nullable value/reference types
+- Tuples
 - Expression-bodied members
 - `async`/`await`
 - Lambda expressions
