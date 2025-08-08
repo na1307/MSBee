@@ -56,5 +56,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            '**/*.vsix'
-            '**/*.msi'
+            '*.vsix'
+            '*.msi'
+            'MSBee.VS2017/bin/Release/*.vsix'
+            'MSBee.VS2015/bin/Release/en-US/*.msi'
