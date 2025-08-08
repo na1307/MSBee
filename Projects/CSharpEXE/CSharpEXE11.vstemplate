@@ -2,8 +2,8 @@
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
     <Name>Windows Forms App (.NET Framework 1.1)</Name>
-    <Description>Windows Application</Description>
-    <Icon>CSharpEXE.ico</Icon>
+    <Description Package="{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}" ID="2319" />
+    <Icon Package="{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}" ID="4554" />
     <ProjectType>CSharp</ProjectType>
     <LanguageTag>csharp</LanguageTag>
     <SortOrder>1000</SortOrder>

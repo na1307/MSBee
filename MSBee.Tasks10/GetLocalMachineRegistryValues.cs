@@ -1,6 +1,3 @@
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
-using Microsoft.Win32;
 using System.Security;
 
 namespace MSBee.Tasks10;

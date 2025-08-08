@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <Product>MSBee</Product>
+    <AssemblyVersion>1</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Version>1.0</Version>
+    <NoWarn>$(NoWarn);CA1819;SA1600</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>

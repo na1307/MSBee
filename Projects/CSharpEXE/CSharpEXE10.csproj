@@ -56,7 +56,6 @@
     <None Include="AssemblyInfo.cs" />
     <None Include="Form1.cs" />
     <None Include="ProjectTemplate10.csproj" />
-    <None Include="CSharpEXE.ico" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="CSharpEXE10.vstemplate" />

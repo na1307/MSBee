@@ -1,8 +1,4 @@
-﻿using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
-using Microsoft.Win32;
-
-namespace MSBee.Tasks11;
+﻿namespace MSBee.Tasks11;
 
 public sealed class GetFrameworkSDKPath : Task {
     public GetFrameworkSDKPath() {

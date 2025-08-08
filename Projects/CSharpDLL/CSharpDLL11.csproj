@@ -56,7 +56,6 @@
     <None Include="AssemblyInfo.cs" />
     <None Include="Class1.cs" />
     <None Include="ProjectTemplate11.csproj" />
-    <None Include="CSharpDLL.ico" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="CSharpDLL11.vstemplate" />
