@@ -27,13 +27,17 @@ jobs:
         uses: timheuer/vsix-version-stamp@v2
         with:
           manifest-file: MSBee.VS2017\source.extension.vsixmanifest
-      - name: Build
+      - name: Build 2017
         run: msbuild MSBee.VS2017\MSBee.VS2017.csproj -r -p:Configuration=Release -p:DeployExtension=false
+      - name: Build 2015
+        run: msbuild MSBee.VS2015\MSBee.VS2015.wixproj -r -p:Configuration=Release
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}.vsix
-          path: MSBee.VS2017/bin/Release/*.vsix
+          path: |
+            MSBee.VS2017/bin/Release/*.vsix
+            MSBee.VS2015/bin/Release/en-US/*.msi
 
   publish:
     name: Publish
@@ -51,4 +55,6 @@ jobs:
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: '*.vsix'
+          files: |
+            '*.vsix'
+            '*.msi'
