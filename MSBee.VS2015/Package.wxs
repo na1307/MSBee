@@ -1,0 +1,23 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Id="MSBee.VS2015" Name="MSBee (Visual Studio 2012 - 2015)" Manufacturer="Bluehill" Version="1.0">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <PropertyRef Id="VS2012_EXTENSIONS_DIR" />
+    <PropertyRef Id="VS2013_EXTENSIONS_DIR" />
+    <PropertyRef Id="VS2015_EXTENSIONS_DIR" />
+    <CustomActionRef Id="VS2012Setup" />
+    <CustomActionRef Id="VS2013Setup" />
+    <CustomActionRef Id="VS2015Setup" />
+
+    <Launch Condition="VS2012_EXTENSIONS_DIR Or VS2013_EXTENSIONS_DIR Or VS2015_EXTENSIONS_DIR" Message="Visual Studio 2012 - 2015 couldn't be found." />
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="MSBuildComponents" />
+      <?foreach VS in 2012;2013;2015 ?>
+      <ComponentGroupRef Id="VS$(VS)Components" />
+      <?endforeach?>
+    </Feature>
+  </Package>
+</Wix>

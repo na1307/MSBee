@@ -1,0 +1,18 @@
+﻿<Project Sdk="WixToolset.Sdk">
+  <PropertyGroup>
+    <SuppressIces>ICE30</SuppressIces>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.VisualStudio.wixext" Version="6.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSBee.Tasks10\MSBee.Tasks10.csproj" />
+    <ProjectReference Include="..\MSBee.Tasks11\MSBee.Tasks11.csproj" />
+    <ProjectReference Include="..\Projects\CSharpConsole\CSharpConsole10.csproj" />
+    <ProjectReference Include="..\Projects\CSharpConsole\CSharpConsole11.csproj" />
+    <ProjectReference Include="..\Projects\CSharpDLL\CSharpDLL10.csproj" />
+    <ProjectReference Include="..\Projects\CSharpDLL\CSharpDLL11.csproj" />
+    <ProjectReference Include="..\Projects\CSharpEXE\CSharpEXE10.csproj" />
+    <ProjectReference Include="..\Projects\CSharpEXE\CSharpEXE11.csproj" />
+  </ItemGroup>
+</Project>

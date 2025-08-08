@@ -1,0 +1,29 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <?foreach VS in 2012;2013;2015 ?>
+    <ComponentGroup Id="VS$(VS)Components">
+      <Component Directory="VS$(VS)" Guid="42$(VS)10-9cc4-422b-b47e-fee60fcaf4b7" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="extension.vsixmanifest" />
+      </Component>
+      <Component Directory="VS$(VS)CSHARP" Guid="76$(VS)31-61a3-4a35-b888-e14b86259513" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="ProjectTemplates\CSharp\1033\CSharpConsole10.zip" />
+      </Component>
+      <Component Directory="VS$(VS)CSHARP" Guid="bb$(VS)db-9367-437e-938d-d9f86cecd051" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="ProjectTemplates\CSharp\1033\CSharpConsole11.zip" />
+      </Component>
+      <Component Directory="VS$(VS)CSHARP" Guid="4d$(VS)62-437c-4009-a914-b2fc9592405d" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="ProjectTemplates\CSharp\1033\CSharpDLL10.zip" />
+      </Component>
+      <Component Directory="VS$(VS)CSHARP" Guid="98$(VS)be-c339-4970-b1b8-792822607ae2" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="ProjectTemplates\CSharp\1033\CSharpDLL11.zip" />
+      </Component>
+      <Component Directory="VS$(VS)CSHARP" Guid="85$(VS)f9-576f-41e3-a0f4-21cc2d1a9110" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="ProjectTemplates\CSharp\1033\CSharpEXE10.zip" />
+      </Component>
+      <Component Directory="VS$(VS)CSHARP" Guid="1d$(VS)e0-5d4d-4d38-b35d-f3dca7b8dc03" Condition="VS$(VS)_EXTENSIONS_DIR &lt;&gt; &quot;C:\&quot;">
+        <File Source="ProjectTemplates\CSharp\1033\CSharpEXE11.zip" />
+      </Component>
+    </ComponentGroup>
+    <?endforeach?>
+  </Fragment>
+</Wix>

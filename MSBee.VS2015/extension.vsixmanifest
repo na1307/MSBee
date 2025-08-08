@@ -1,0 +1,15 @@
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="MSBee.VS2015.78a37fd2-5d05-4884-8b18-173e331f3472" Version="1.0" Language="en-US" Publisher="Bluehill" />
+    <DisplayName>MSBee (Visual Studio 2012 - 2015)</DisplayName>
+    <Description xml:space="preserve">Allows you to target .NET Framework 1.0 and 1.1</Description>
+  </Metadata>
+  <Installation AllUsers="true" InstalledByMsi="true">
+    <InstallationTarget Version="[11.0, 15.0)" Id="Microsoft.VisualStudio.Community" />
+    <InstallationTarget Version="[11.0, 15.0)" Id="Microsoft.VisualStudio.Pro" />
+  </Installation>
+  <Dependencies />
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" Path="ProjectTemplates" />
+  </Assets>
+</PackageManifest>

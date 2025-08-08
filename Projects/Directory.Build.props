@@ -1,0 +1,7 @@
+<Project>
+  <Import Project="..\Directory.Build.props" />
+  <PropertyGroup>
+    <BaseIntermediateOutputPath Condition="$(MSBuildProjectName.EndsWith('10'))">obj\FX10\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="$(MSBuildProjectName.EndsWith('11'))">obj\FX11\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+</Project>

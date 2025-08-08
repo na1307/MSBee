@@ -1,0 +1,36 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="MSBuildComponents" Directory="MSBEEFOLDER">
+      <Component>
+        <File Source="MSBee.Tasks10.dll" />
+      </Component>
+      <Component>
+        <File Source="MSBee.Tasks10.pdb" />
+      </Component>
+      <Component>
+        <File Source="MSBee.Tasks11.dll" />
+      </Component>
+      <Component>
+        <File Source="MSBee.Tasks11.pdb" />
+      </Component>
+      <Component>
+        <File Source="..\MSBuildImports\MSBuildExtras.FX1_0.Common.targets" />
+      </Component>
+      <Component>
+        <File Source="..\MSBuildImports\MSBuildExtras.FX1_0.CSharp.targets" />
+      </Component>
+      <Component>
+        <File Source="..\MSBuildImports\MSBuildExtras.FX1_0.VisualBasic.targets" />
+      </Component>
+      <Component>
+        <File Source="..\MSBuildImports\MSBuildExtras.FX1_1.Common.targets" />
+      </Component>
+      <Component>
+        <File Source="..\MSBuildImports\MSBuildExtras.FX1_1.CSharp.targets" />
+      </Component>
+      <Component>
+        <File Source="..\MSBuildImports\MSBuildExtras.FX1_1.VisualBasic.targets" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
