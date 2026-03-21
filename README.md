@@ -41,6 +41,7 @@ You're limited to **C# 1.0 or 1.2**, depending on the .NET Framework version. Th
 - Tuples
 - Expression-bodied members
 - `async`/`await`
+- Auto-implmented properties
 - Lambda expressions
 - Generics
 

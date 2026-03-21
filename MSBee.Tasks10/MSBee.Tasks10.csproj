@@ -9,7 +9,7 @@
     <Using Include="Microsoft.Win32" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Bluehill.Imports" Version="1.0.18">
+    <PackageReference Include="Bluehill.Imports" Version="1.0.22">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

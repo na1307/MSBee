@@ -1,0 +1,32 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="MSBee.Tasks10/MSBee.Tasks10.csproj" />
+  <Project Path="MSBee.Tasks11/MSBee.Tasks11.csproj" />
+  <Project Path="MSBee.VS2015/MSBee.VS2015.wixproj" Type="b7dd6f7e-def8-4e67-b5b7-07ef123db6f0">
+    <Platform Project="x86" />
+  </Project>
+  <Project Path="MSBee.VS2017/MSBee.VS2017.csproj" Id="72860313-b5bf-4661-89d3-eb3bc03c0cbd">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Projects/CSharpConsole/CSharpConsole10.csproj" Id="d73ce984-7f1e-47f1-a25d-7c2ef30c4746">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Projects/CSharpConsole/CSharpConsole11.csproj" Id="8312ba0c-c34e-4b18-a0c9-808538a3844e">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Projects/CSharpDLL/CSharpDLL10.csproj" Id="9d910ec9-da3f-4790-9bbd-f2d7cadc1a46">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Projects/CSharpDLL/CSharpDLL11.csproj" Id="0980605b-2cea-4c86-997d-3945a25d197e">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Projects/CSharpEXE/CSharpEXE10.csproj" Id="bc958f0f-a4da-4146-b722-3580275c603b">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Projects/CSharpEXE/CSharpEXE11.csproj" Id="234cbf36-1673-42f4-be78-38e29c258212">
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+</Solution>
