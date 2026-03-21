@@ -1,6 +1,14 @@
-﻿namespace MSBee.Tasks11;
+﻿namespace MSBee.Tasks;
 
 public sealed class GetFrameworkPath : Task {
+#if FX1_0
+    private const string FXVersion = "v1.0.3705";
+    private const string FXVersionName = "1.0";
+#elif FX1_1
+    private const string FXVersion = "v1.1.4322";
+    private const string FXVersionName = "1.1";
+#endif
+
     public GetFrameworkPath() {
         const string regPath = @"SOFTWARE\Microsoft\.NETFramework";
         const string regPathWow64 = @"SOFTWARE\WOW6432Node\Microsoft\.NETFramework";
@@ -13,8 +21,8 @@ public sealed class GetFrameworkPath : Task {
 
         using (dotNetFramework) {
             if (dotNetFramework.GetValue("InstallRoot") is string installRoot
-                && File.Exists(System.IO.Path.Combine(System.IO.Path.Combine(installRoot, "v1.1.4322"), "csc.exe"))) {
-                Path = System.IO.Path.Combine(installRoot, "v1.1.4322");
+                && File.Exists(System.IO.Path.Combine(System.IO.Path.Combine(installRoot, FXVersion), "csc.exe"))) {
+                Path = System.IO.Path.Combine(installRoot, FXVersion);
             }
         }
     }
@@ -30,7 +38,7 @@ public sealed class GetFrameworkPath : Task {
 
     public override bool Execute() {
         if (string.IsNullOrEmpty(Path)) {
-            Log.LogError(".NET Framework 1.1 not found.");
+            Log.LogError(".NET Framework {0} not found.", FXVersionName);
         }
 
         return !Log.HasLoggedErrors;

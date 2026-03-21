@@ -1,6 +1,6 @@
 using System.Security;
 
-namespace MSBee.Tasks11;
+namespace MSBee.Tasks;
 
 public abstract class GetLocalMachineRegistryValues : Task {
     // The registry key/path.
@@ -35,7 +35,7 @@ public abstract class GetLocalMachineRegistryValues : Task {
         }
 
         try {
-            if (RootKey != null) {
+            if (RootKey is not null) {
                 AddValuesToRegistryValuesList(RootKey);
             } else {
                 var registryKeyPath = baseRegistryKey.ToString() + Path.DirectorySeparatorChar + registryKey;

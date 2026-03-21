@@ -90,13 +90,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MSBee.Tasks11\MSBee.Tasks11.csproj">
+    <ProjectReference Include="..\MSBee.Tasks\MSBee.Tasks11.csproj">
       <Project>{6e43e1d6-969f-40b3-9125-d55029e92fee}</Project>
       <Name>MSBee.Tasks11</Name>
       <InstallRoot>MSBuild</InstallRoot>
       <VSIXSubPath>MSBee\</VSIXSubPath>
     </ProjectReference>
-    <ProjectReference Include="..\MSBee.Tasks10\MSBee.Tasks10.csproj">
+    <ProjectReference Include="..\MSBee.Tasks\MSBee.Tasks10.csproj">
       <Project>{096F8286-1E0C-AD42-01A6-D42ABC8F949B}</Project>
       <Name>MSBee.Tasks10</Name>
       <InstallRoot>MSBuild</InstallRoot>

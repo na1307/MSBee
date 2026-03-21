@@ -3,8 +3,8 @@
     <Platform Name="Any CPU" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="MSBee.Tasks10/MSBee.Tasks10.csproj" />
-  <Project Path="MSBee.Tasks11/MSBee.Tasks11.csproj" />
+  <Project Path="MSBee.Tasks/MSBee.Tasks10.csproj" />
+  <Project Path="MSBee.Tasks/MSBee.Tasks11.csproj" />
   <Project Path="MSBee.VS2015/MSBee.VS2015.wixproj" Type="b7dd6f7e-def8-4e67-b5b7-07ef123db6f0">
     <Platform Project="x86" />
   </Project>

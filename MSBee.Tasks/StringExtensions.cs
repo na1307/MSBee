@@ -1,16 +1,16 @@
 ﻿using System.Text;
 
-namespace MSBee.Tasks10;
+namespace MSBee.Tasks;
 
 public static class StringExtensions {
     public static string Replace(this string str, string oldValue, string? newValue, StringComparison comparisonType) {
         // Check inputs.
-        if (str == null) {
+        if (str is null) {
             // Same as original .NET C# string.Replace behavior.
             throw new ArgumentNullException(nameof(str));
         }
 
-        if (oldValue == null) {
+        if (oldValue is null) {
             // Same as original .NET C# string.Replace behavior.
             throw new ArgumentNullException(nameof(oldValue));
         }
@@ -27,7 +27,7 @@ public static class StringExtensions {
 
         // Prepare string builder for storing the processed string.
         // Note: StringBuilder has a better performance than String by 30-40%.
-        var resultStringBuilder = new StringBuilder(str.Length);
+        StringBuilder resultStringBuilder = new(str.Length);
 
         // Analyze the replacement: replace or remove.
         var isReplacementNullOrEmpty = string.IsNullOrEmpty(newValue);

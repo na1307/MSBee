@@ -1,7 +1,15 @@
-﻿namespace MSBee.Tasks10;
+﻿namespace MSBee.Tasks;
 
-public sealed class GetFrameworkPath : Task {
-    public GetFrameworkPath() {
+public sealed class GetFrameworkSDKPath : Task {
+#if FX1_0
+    private const string SdkInstallRoot = "sdkInstallRoot";
+    private const string FXVersionName = "1.0";
+#elif FX1_1
+    private const string SdkInstallRoot = "sdkInstallRootv1.1";
+    private const string FXVersionName = "1.1";
+#endif
+
+    public GetFrameworkSDKPath() {
         const string regPath = @"SOFTWARE\Microsoft\.NETFramework";
         const string regPathWow64 = @"SOFTWARE\WOW6432Node\Microsoft\.NETFramework";
         var dotNetFramework = Registry.LocalMachine.OpenSubKey(regPathWow64);
@@ -12,9 +20,8 @@ public sealed class GetFrameworkPath : Task {
         }
 
         using (dotNetFramework) {
-            if (dotNetFramework.GetValue("InstallRoot") is string installRoot
-                && File.Exists(System.IO.Path.Combine(System.IO.Path.Combine(installRoot, "v1.0.3705"), "csc.exe"))) {
-                Path = System.IO.Path.Combine(installRoot, "v1.0.3705");
+            if (dotNetFramework.GetValue(SdkInstallRoot) is string sdkInstallRoot) {
+                Path = sdkInstallRoot;
             }
         }
     }
@@ -22,15 +29,9 @@ public sealed class GetFrameworkPath : Task {
     [Output]
     public string? Path { get; }
 
-    [Output]
-    public string? FrameworkVersion35Path => Path;
-
-    [Output]
-    public string? FrameworkVersion40Path => Path;
-
     public override bool Execute() {
         if (string.IsNullOrEmpty(Path)) {
-            Log.LogError(".NET Framework 1.0 not found.");
+            Log.LogError(".NET Framework {0} SDK not found.", FXVersionName);
         }
 
         return !Log.HasLoggedErrors;

@@ -1,4 +1,4 @@
-namespace MSBee.Tasks11;
+namespace MSBee.Tasks;
 
 public sealed class GetVisualStudioInteropSearchPaths() : GetLocalMachineRegistryValues(VisualStudioInteropSearchPathKey) {
     public const string VisualStudioInteropSearchPathKey

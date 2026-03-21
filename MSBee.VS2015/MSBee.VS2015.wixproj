@@ -4,8 +4,8 @@
     <PackageReference Include="WixToolset.VisualStudio.wixext" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MSBee.Tasks10\MSBee.Tasks10.csproj" />
-    <ProjectReference Include="..\MSBee.Tasks11\MSBee.Tasks11.csproj" />
+    <ProjectReference Include="..\MSBee.Tasks\MSBee.Tasks10.csproj" />
+    <ProjectReference Include="..\MSBee.Tasks\MSBee.Tasks11.csproj" />
     <ProjectReference Include="..\Projects\CSharpConsole\CSharpConsole10.csproj" />
     <ProjectReference Include="..\Projects\CSharpConsole\CSharpConsole11.csproj" />
     <ProjectReference Include="..\Projects\CSharpDLL\CSharpDLL10.csproj" />

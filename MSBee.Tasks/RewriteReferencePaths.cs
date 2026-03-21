@@ -1,7 +1,11 @@
-﻿namespace MSBee.Tasks10;
+﻿namespace MSBee.Tasks;
 
 public sealed class RewriteReferencePaths : Task {
-    private static string? framework32;
+#if FX1_0
+    private const string FXVersion = "v1.0.3705";
+#elif FX1_1
+    private const string FXVersion = "v1.1.4322";
+#endif
 
     [Required]
     [Output]
@@ -9,8 +13,8 @@ public sealed class RewriteReferencePaths : Task {
 
     private static string? Framework32 {
         get {
-            if (framework32 is not null) {
-                return framework32;
+            if (field is not null) {
+                return field;
             }
 
             const string regPath = @"SOFTWARE\Microsoft\.NETFramework";
@@ -20,11 +24,11 @@ public sealed class RewriteReferencePaths : Task {
 
             using (dotNetFramework) {
                 if (dotNetFramework?.GetValue("InstallRoot") is string installRoot) {
-                    framework32 = installRoot.TrimEnd('\\');
+                    field = installRoot.TrimEnd('\\');
                 }
             }
 
-            return framework32;
+            return field;
         }
     }
 
@@ -33,7 +37,7 @@ public sealed class RewriteReferencePaths : Task {
 
         foreach (var reference in References) {
             var rewrited = reference.Replace($"{Framework32}64", Framework32, StringComparison.OrdinalIgnoreCase)
-                .Replace($"{Framework32}\\v2.0.50727", $"{Framework32}\\v1.0.3705", StringComparison.OrdinalIgnoreCase);
+                .Replace($"{Framework32}\\v2.0.50727", $"{Framework32}\\{FXVersion}", StringComparison.OrdinalIgnoreCase);
 
             refs.Add(rewrited);
             Log.LogMessage("Rewrited from \"{0}\" to \"{1}\"", reference, rewrited);

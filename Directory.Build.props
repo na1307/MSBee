@@ -5,5 +5,7 @@
     <FileVersion>2.0.0</FileVersion>
     <Version>2.0</Version>
     <NoWarn>$(NoWarn);CA1819;SA1600</NoWarn>
+    <BaseIntermediateOutputPath Condition="$(MSBuildProjectName.EndsWith('10'))">obj\FX10\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="$(MSBuildProjectName.EndsWith('11'))">obj\FX11\</BaseIntermediateOutputPath>
   </PropertyGroup>
 </Project>
