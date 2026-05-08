@@ -1,0 +1,69 @@
+<Project>
+  <UsingTask TaskName="FixAssembly" AssemblyFile="$(MSBuildThisFileDirectory)..\tasks\netstandard2.0\MSBee.AssemblyFixer.dll" />
+
+  <!-- .NET Framework 1.0 -->
+  <PropertyGroup Condition="'$(RealTargetFramework)' == 'net10'">
+    <MSBeeTasksName>MSBee.Tasks10</MSBeeTasksName>
+  </PropertyGroup>
+
+  <!-- .NET Framework 1.1 -->
+  <PropertyGroup Condition="'$(RealTargetFramework)' == 'net11'">
+    <MSBeeTasksName>MSBee.Tasks11</MSBeeTasksName>
+  </PropertyGroup>
+
+  <UsingTask TaskName="GetFrameworkPath" AssemblyFile="$(MSBuildThisFileDirectory)..\tasks\netstandard2.0\$(MSBeeTasksName).dll"/>
+  <UsingTask TaskName="RewriteReferencePaths" AssemblyFile="$(MSBuildThisFileDirectory)..\tasks\netstandard2.0\$(MSBeeTasksName).dll" />
+
+  <!-- Override -->
+  <Target Name="GetFrameworkPaths">
+    <GetFrameworkPath>
+      <Output TaskParameter="Path" PropertyName="TargetFrameworkDirectory" />
+    </GetFrameworkPath>
+  </Target>
+
+  <!-- (I don't know why, but) SDK-style projects do not reference System.Windows.Forms for net20 target. Therefore, let's do it manually. -->
+  <ItemGroup Condition="'$(UseWindowsForms)' == 'true'">
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <!-- Remove namespaces unavailable in .NET Framework 1 -->
+  <ItemGroup>
+    <Using Remove="System.Collections.Generic" />
+    <Using Remove="System.Linq" />
+    <Using Remove="System.Threading.Tasks" />
+  </ItemGroup>
+
+  <!-- Rewrite .NET Framework 2.0 assembly references to 1.x -->
+  <Target Name="Rewrite" BeforeTargets="CoreCompile">
+    <Error Text="Please set the RealTargetFramework property to net10 or net11 in your project file." Condition="'$(MSBeeTasksName)' == ''" />
+
+    <RewriteReferencePaths References="@(ReferencePath)">
+      <Output TaskParameter="References" ItemName="ReferencePath2" />
+    </RewriteReferencePaths>
+
+    <ItemGroup>
+      <ReferencePathWithRefAssemblies Remove="@(ReferencePathWithRefAssemblies)" />
+      <ReferencePathWithRefAssemblies Include="@(ReferencePath2)" />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    Assemblies not compiled with the compiler included in .NET Framework 1 do not run on CLR 1 by default
+    due to internal differences, even if they reference the .NET Framework 1 FCL.
+    Modify the output assembly so that it runs normally on CLR 1.
+
+    Note: Modifying the assembly does not guarantee that it will work on CLR 1.
+    For example, it can be guaranteed that code using generics will not work on CLR 1.
+  -->
+  <Target Name="Fix" AfterTargets="AfterBuild">
+    <FixAssembly TargetPath="$(TargetPath)" />
+  </Target>
+
+  <!-- FixAssembly backs up the original assembly with "-original" appended to its name. Let's have it delete this when you clean the project. -->
+  <Target Name="DeleteOriginal" AfterTargets="AfterClean">
+    <Delete Files="$(TargetDir)$(TargetName)-original$(TargetExt)" />
+  </Target>
+
+  <!-- Import the default SDK -->
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

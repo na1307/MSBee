@@ -3,8 +3,8 @@
     <AcceptEula>wix7</AcceptEula>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WixToolset.UI.wixext" Version="7.0.0" />
-    <PackageReference Include="WixToolset.VisualStudio.wixext" Version="7.0.0" />
+    <PackageReference Include="WixToolset.UI.wixext" />
+    <PackageReference Include="WixToolset.VisualStudio.wixext" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSBee.Tasks\MSBee.Tasks10.csproj" />

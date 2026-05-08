@@ -49,7 +49,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.5.40034">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

@@ -3,12 +3,13 @@
     <Platform Name="Any CPU" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="Bluehill.MSBee.Sdk/Bluehill.MSBee.Sdk.csproj" />
   <Project Path="MSBee.Tasks/MSBee.Tasks10.csproj" />
   <Project Path="MSBee.Tasks/MSBee.Tasks11.csproj" />
   <Project Path="MSBee.VS2015/MSBee.VS2015.wixproj" Type="b7dd6f7e-def8-4e67-b5b7-07ef123db6f0">
     <Platform Project="x86" />
   </Project>
-  <Project Path="MSBee.VS2017/MSBee.VS2017.csproj" Id="72860313-b5bf-4661-89d3-eb3bc03c0cbd">
+  <Project Path="MSBee.VS2017/MSBee.VS2017.csproj">
     <Platform Solution="*|x86" Project="x86" />
   </Project>
   <Project Path="Projects/CSharpConsole/CSharpConsole10.csproj" Id="d73ce984-7f1e-47f1-a25d-7c2ef30c4746">

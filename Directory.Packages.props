@@ -1,5 +1,18 @@
 <Project>
   <PropertyGroup>
-    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Bluehill.CompilerServices.SourceGenerator" Version="1.3.0" />
+    <PackageVersion Include="dnlib" Version="4.5.0" />
+    <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="15.9.30" />
+    <PackageVersion Include="Microsoft.VSSDK.BuildTools" Version="18.5.40034" />
+    <PackageVersion Include="WixToolset.UI.wixext" Version="7.0.0" />
+    <PackageVersion Include="WixToolset.VisualStudio.wixext" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <GlobalPackageReference Include="Bluehill.Imports" Version="1.0.22" />
+  </ItemGroup>
 </Project>

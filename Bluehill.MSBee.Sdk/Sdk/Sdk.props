@@ -1,0 +1,17 @@
+<Project>
+  <!-- Import the default SDK -->
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <!-- If we set it to net10 or net11, building is impossible, so we need to set it to net20. -->
+    <TargetFramework>net20</TargetFramework>
+    <!-- Getting rid of the annoying 'net20' folder -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- If we do not set this, unnecessary mscorlib.dll will be included in the output folder. -->
+    <DoNotCopyLocalIfInGac>true</DoNotCopyLocalIfInGac>
+    <!-- (As with the above) If we do not set this, unnecessary .config files will follow in the output folder. If the project has an app.config, it is ignored. -->
+    <GenerateSupportedRuntime>false</GenerateSupportedRuntime>
+    <!-- Taking advantage of the latest C# features -->
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>
