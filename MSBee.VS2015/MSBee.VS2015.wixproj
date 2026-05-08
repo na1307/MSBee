@@ -1,7 +1,10 @@
 ﻿<Project Sdk="WixToolset.Sdk">
+  <PropertyGroup>
+    <AcceptEula>wix7</AcceptEula>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
-    <PackageReference Include="WixToolset.VisualStudio.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="7.0.0" />
+    <PackageReference Include="WixToolset.VisualStudio.wixext" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSBee.Tasks\MSBee.Tasks10.csproj" />
